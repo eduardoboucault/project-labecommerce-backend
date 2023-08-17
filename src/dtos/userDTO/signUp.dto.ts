@@ -1,15 +1,20 @@
 import z from 'zod';
 
+// DTO's utilizados no projeto. Dto's são objetos que representam os dados de entrada e de saída. É necessário sempre validar os tipos de dados que serão enviados para o banco de dados. Por isso utilizamos interfaces para formato de entrada e saída, validamos também com a biblioteca Zod. Com o zod criamos esquemas de validação para as informações que receberemos do cliente. Desta maneira as informações que serão trabalhadas na camada Business já estão validadas.
+
+// Interface para input de dados para o cadastro de usuário;
 export interface SignUpInputDTO {
     nickname: string,
     email: string,
     password: string
 }
 
+// Interface para output de dados do cadastro de usuário. No caso é um token de autenticação;
 export interface SignUpOutputDTO {
     token: string
 }
 
+// Schema de validação para o cadastro de usuário;
 export const signUpSchema = z.object({
     nickname: z.string({
         required_error: "'nickname' é obrigatório",
