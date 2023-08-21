@@ -14,7 +14,7 @@ export interface LoginOutputDTO {
 }
 
 // Schema de validação para o login de usuário;
-export const loginSchema = z.object({
+export const LoginSchema = z.object({
     email: z.string({
         required_error: "'email' é obrigatório",
         invalid_type_error: "'email' deve ser do tipo string"

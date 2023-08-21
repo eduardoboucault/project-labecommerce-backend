@@ -24,7 +24,7 @@ const userController = new UserController(
 // Criação de rotas de usuário:
 
 // Rota para cadastro de usuário
-userRouter.post("/signup", userController.signUp);
+userRouter.post("/signup", userController.signup);
 
 // Rota para login de usuário
 userRouter.post("/login", userController.login);

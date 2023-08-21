@@ -1,5 +1,5 @@
 import { UserDatabase } from "../database/UserDatabase";
-import { SignUpInputDTO, SignUpOutputDTO } from "../dtos/userDTO/signUp.dto";
+import { SignupInputDTO, SignupOutputDTO } from "../dtos/userDTO/signup.dto";
 import { User } from "../models/User";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
@@ -22,7 +22,7 @@ export class UserBusiness {
         private hashManager: HashManager
     ) { }
 
-    public signUp = async (input: SignUpInputDTO): Promise<SignUpOutputDTO> => {
+    public signup = async (input: SignupInputDTO): Promise<SignupOutputDTO> => {
         // Validação do input de forma destruturada
         const { nickname, email, password } = input
         // Busca por email para validação de existência
@@ -54,7 +54,7 @@ export class UserBusiness {
         // Gera o token de autenticação através do método createToken() com o objeto tokenPayload
         const token = this.tokenManager.createToken(tokenPayLoad);
         // Retorna o token
-        const output: SignUpOutputDTO = {
+        const output: SignupOutputDTO = {
             token: token
         }
 
