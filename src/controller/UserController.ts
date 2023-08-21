@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import { UserBusiness } from '../business/UserBusiness'
 import { BaseError } from '../erros/BaseError';
-import { signUpSchema } from '../dtos/userDTO/signUp.dto';
+import { SignupSchema } from '../dtos/userDTO/signup.dto';
 import { ZodError } from 'zod'
-import { loginSchema } from '../dtos/userDTO/login.dto';
+import { LoginSchema } from '../dtos/userDTO/login.dto';
 
 // Camada controller, responsável por requisições e respostas HTTP. Por isso utilizaremos os métodos Request e Response do express nas funções signUp e login.
 
@@ -18,18 +18,18 @@ export class UserController {
         private userBusiness: UserBusiness
     ) { }
 
-    public signUp = async (req: Request, res: Response) => {
+    public signup = async (req: Request, res: Response) => {
 
-    // Utilizaremos o try/catch para tratar erros de validação do input.
+        // Utilizaremos o try/catch para tratar erros de validação do input.
         try {
             // Validação do input
-            const input = signUpSchema.parse({
+            const input = SignupSchema.parse({
                 nickname: req.body.nickname,
                 email: req.body.email,
                 password: req.body.password
             });
             // Chamada da função de cadastro
-            const output = await this.userBusiness.signUp(input);
+            const output = await this.userBusiness.signup(input);
             // Retorno da função. Enviando o token de autenticação para o cliente.
             res.status(201).send(output);
         } catch (error) {
@@ -50,7 +50,7 @@ export class UserController {
         // Utilizaremos o try/catch para tratar erros de validação do input.
         try {
             // Validação do input
-            const input = loginSchema.parse({
+            const input = LoginSchema.parse({
                 email: req.body.email,
                 password: req.body.password
             })

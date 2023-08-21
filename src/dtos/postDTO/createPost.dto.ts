@@ -1,13 +1,13 @@
 import z from "zod";
 
-export interface CreateInputDTO {
+export interface CreatePostInputDTO {
     token: string,
     content: string
 }
 
-export type CreateOutputDTO = undefined
+export type CreatePostOutputDTO = undefined
 
-export const createPostSchema = z.object({
+export const CreatePostSchema = z.object({
     token: z.string().min(1),
     content: z.string().min(1)
-}).transform(data => data as CreateInputDTO);
+}).transform(data => data as CreatePostInputDTO);
