@@ -68,7 +68,7 @@ export class Post {
         this.commentsCount = commentsCount;
     }
 
-    public increseVotesCount(): void {
+    public increaseVotesCount(): void {
         this.votesCount++;
     }
 
@@ -76,7 +76,7 @@ export class Post {
         this.votesCount--;
     }
 
-    public increseCommentsCount(): void {
+    public increaseCommentsCount(): void {
         this.commentsCount++;
     }
 

@@ -4,6 +4,7 @@ import { CreatePostSchema } from "../dtos/postDTO/createPost.dto";
 import { GetPostSchema } from "../dtos/postDTO/getPosts.dto";
 import { ZodError } from "zod";
 import { BaseError } from "../erros/BaseError";
+import { GetPostByIdSchema } from "../dtos/postDTO/getPostById.dto";
 import { VotePostSchema } from "../dtos/postDTO/votePost.dto";
 
 
@@ -23,23 +24,18 @@ export class PostController {
             });
 
             const output = await this.postBusiness.createPost(input);
-
             res.status(201).send(output);
 
         } catch (error) {
-
             console.log(error);
 
             if (error instanceof ZodError) {
-
                 res.status(400).send(error.issues)
 
             } else if (error instanceof BaseError) {
-
                 res.status(error.statusCode).send(error.message)
 
             } else {
-
                 res.status(500).send("Erro inesperado")
             }
         }
@@ -54,23 +50,18 @@ export class PostController {
             })
 
             const result = await this.postBusiness.getPosts(input);
-
             res.status(200).send(result);
 
         } catch (error) {
-
             console.log(error);
 
             if (error instanceof ZodError) {
-
                 res.status(400).send(error.issues)
 
             } else if (error instanceof BaseError) {
-
                 res.status(error.statusCode).send(error.message)
 
             } else {
-
                 res.status(500).send("Erro inesperado")
             }
         }
@@ -78,22 +69,27 @@ export class PostController {
     }
 
     public getPostById = async (req: Request, res: Response) => {
+
         try {
 
-        } catch (error) {
+            const input = GetPostByIdSchema.parse({
+                token: req.headers.authorization,
+                postId: req.params.id
+            })
 
+            const response = await this.postBusiness.getPostById(input);
+            res.status(200).send(response)
+
+        } catch (error) {
             console.log(error);
 
             if (error instanceof ZodError) {
-
                 res.status(400).send(error.issues)
 
             } else if (error instanceof BaseError) {
-
                 res.status(error.statusCode).send(error.message)
 
             } else {
-
                 res.status(500).send("Erro inesperado")
             }
         }
@@ -110,23 +106,18 @@ export class PostController {
             });
 
             const response = await this.postBusiness.votePost(input);
-
             res.status(200).send(response);
 
         } catch (error) {
-
             console.log(error);
 
             if (error instanceof ZodError) {
-
                 res.status(400).send(error.issues)
 
             } else if (error instanceof BaseError) {
-
                 res.status(error.statusCode).send(error.message)
 
             } else {
-
                 res.status(500).send("Erro inesperado")
             }
         }
