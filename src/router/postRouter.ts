@@ -20,6 +20,6 @@ const postController = new PostController(
 postRouter.post("/", postController.createPost)
 postRouter.get("/", postController.getPosts)
 postRouter.get("/:id", postController.getPostById)
-postRouter.put("/:id/vote", postController.votePost)
+// postRouter.put("/:id/vote", postController.votePost)
 
 export default postRouter
