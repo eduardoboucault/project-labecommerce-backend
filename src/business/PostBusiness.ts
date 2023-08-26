@@ -96,14 +96,14 @@ export class PostBusiness {
         const { token, postId } = input;
 
         const payload = this.tokenManager.getPayload(token);
-        
-        if(!payload){
+
+        if (!payload) {
             throw new UnauthorizedError("Token inválido");
         }
 
         const postDB = await this.postDatabase.findPostById(postId);
 
-        if(!postDB){
+        if (!postDB) {
             throw new NotFoundError("Post não encontrado");
         }
 
@@ -165,6 +165,7 @@ export class PostBusiness {
 
         // Verificamos se o usuário já votou
         if (postVoteDB) {
+
             // Se o voto for positivo e o usuário quer votar positivamente, subtrai-se 1
             if (postVoteDB.vote) {
                 if (vote) {
@@ -176,13 +177,15 @@ export class PostBusiness {
                     post.decreaseVotesCount();
                     await this.postDatabase.updatePostVote(postId, payload.id, voteAsNumber);
                 }
-            // Se o voto for negativo e o usuário vota positivamente, adiciona-se 1 para remover o voto negativo e adiciona-se 1 para o voto positivo
+
+                // Se o voto for negativo e o usuário vota positivamente, adiciona-se 1 para remover o voto negativo e adiciona-se 1 para o voto positivo
             } else {
                 if (vote) {
                     post.increaseVotesCount();
                     post.increaseVotesCount();
                     await this.postDatabase.updatePostVote(postId, payload.id, voteAsNumber);
-                // Se o voto for negativo e o usuário vota negativamente, adiciona-se 1 para o voto negativo
+
+                    // Se o voto for negativo e o usuário vota negativamente, adiciona-se 1 para o voto negativo
                 } else {
                     post.increaseVotesCount();
                     await this.postDatabase.deletePostVote(postId, payload.id);
@@ -191,7 +194,7 @@ export class PostBusiness {
 
             await this.postDatabase.updatePost(post.toDBmodel());
 
-        // Verificamos se o usuário ainda não votou
+            // Verificamos se o usuário ainda não votou
         } else {
             vote ? post.increaseVotesCount() : post.decreaseVotesCount();
             await this.postDatabase.updatePost(post.toDBmodel());

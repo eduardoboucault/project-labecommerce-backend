@@ -68,6 +68,13 @@ export class Comment {
         this.votesCount = votesCount;
     }
 
+    public increaseVotesCount(): void {
+        this.votesCount++;
+    }
+
+    public decreaseVotesCount(): void {
+        this.votesCount--;
+    }
     public getCreatedAt(): string {
         return this.createdAt;
     }

@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import { CreateCommentSchema } from "../dtos/commentDTO/createComment.dto";
 import { CommentBusiness } from "../business/CommentBusiness";
 import { ZodError } from "zod";
 import { BaseError } from "../erros/BaseError";
+import { CreateCommentSchema } from "../dtos/commentDTO/createComment.dto";
 import { GetCommentsSchema } from "../dtos/commentDTO/getComment.dto";
+import { VoteCommentSchema } from "../dtos/commentDTO/voteComment.dto";
 
 export class CommentController {
     
@@ -62,6 +63,14 @@ export class CommentController {
     public voteComment = async (req: Request, res: Response) => {
         try {
             
+            const input = VoteCommentSchema.parse({
+                token: req.headers.authorization,
+                commentId: req.params.commentId,
+                vote: req.body.vote
+            })
+
+            const response = await this.commentBusiness.voteComment(input);
+            res.status(200).send(response);
         } catch (error) {
             console.log(error)
 
