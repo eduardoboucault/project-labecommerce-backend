@@ -15,7 +15,9 @@ app.use(express.json());
 app.listen(Number(process.env.PORT) || 3003, () => {
     console.log(`Server is running in ${Number(process.env.PORT) || 3003}`);
 });
+
 // Rest full, boas práticas
+
 app.use('/users', userRouter);
 app.use('/posts', postRouter);
 app.use('/post', commentRouter);
